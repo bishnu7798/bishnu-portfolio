@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  // Keep the existing portfolio design, but disable the two unwanted hero effects.
+  // Keep the existing portfolio design, but disable the unwanted hero movement/3D effects.
   const fixStyle = document.createElement('style');
   fixStyle.textContent = `
     /* Keep the profile photo fixed in its original position. */
@@ -9,19 +9,21 @@
       transform: none !important;
       transition: none !important;
     }
+
+    /* Remove the continuously rotating 3D hero objects. Keep the normal particle background. */
+    #threejs-container,
+    #threejs-container canvas {
+      display: none !important;
+      visibility: hidden !important;
+    }
+
+    /* Stop the additional continuous hero background rotation/shimmer. */
+    .hero::before,
+    .hero::after {
+      animation: none !important;
+    }
   `;
   document.head.appendChild(fixStyle);
-
-  // Run before the original Three.js load handler so the rotating TorusKnot is never rendered.
-  window.addEventListener('load', function () {
-    if (window.THREE && window.THREE.TorusKnotGeometry) {
-      window.THREE.TorusKnotGeometry = class extends window.THREE.BufferGeometry {
-        constructor() {
-          super();
-        }
-      };
-    }
-  }, false);
 
   // Load the original portfolio code without changing the existing design.
   const original = document.createElement('script');
@@ -45,6 +47,13 @@
     // Ensure the profile photo stays fixed even if another script writes an inline transform.
     const profileImg = document.querySelector('.profile-img');
     if (profileImg) profileImg.style.setProperty('transform', 'none', 'important');
+
+    // Keep the 3D hero canvas disabled even if the original script creates it later.
+    const threeContainer = document.getElementById('threejs-container');
+    if (threeContainer) {
+      threeContainer.style.setProperty('display', 'none', 'important');
+      threeContainer.style.setProperty('visibility', 'hidden', 'important');
+    }
 
     // Fix external social links that were missing the protocol.
     document.querySelectorAll('a[href^="www."]').forEach(function (a) {
