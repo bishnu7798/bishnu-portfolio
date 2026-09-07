@@ -1,6 +1,28 @@
 (function () {
   'use strict';
 
+  // Keep the existing portfolio design, but disable the two unwanted hero effects.
+  const fixStyle = document.createElement('style');
+  fixStyle.textContent = `
+    /* Keep the profile photo fixed in its original position. */
+    .profile-img {
+      transform: none !important;
+      transition: none !important;
+    }
+  `;
+  document.head.appendChild(fixStyle);
+
+  // Run before the original Three.js load handler so the rotating TorusKnot is never rendered.
+  window.addEventListener('load', function () {
+    if (window.THREE && window.THREE.TorusKnotGeometry) {
+      window.THREE.TorusKnotGeometry = class extends window.THREE.BufferGeometry {
+        constructor() {
+          super();
+        }
+      };
+    }
+  }, false);
+
   // Load the original portfolio code without changing the existing design.
   const original = document.createElement('script');
   original.src = 'script-original.js';
@@ -19,6 +41,10 @@
     if (modals.length > 1) {
       for (let i = 1; i < modals.length; i++) modals[i].remove();
     }
+
+    // Ensure the profile photo stays fixed even if another script writes an inline transform.
+    const profileImg = document.querySelector('.profile-img');
+    if (profileImg) profileImg.style.setProperty('transform', 'none', 'important');
 
     // Fix external social links that were missing the protocol.
     document.querySelectorAll('a[href^="www."]').forEach(function (a) {
