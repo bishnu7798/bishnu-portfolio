@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bishnu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <!-- Three.js for 3D model viewer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- AR.js for augmented reality -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <!-- TensorFlow.js for machine learning -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <!-- D3.js for neural network visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Web3.js for blockchain integration -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="preloader-content">
+                <div class="preloader-logo">BISHNU</div>
+                <div class="preloader-bars">
+                    <div class="preloader-bar"></div>
+                    <div class="preloader-bar"></div>
+                    <div class="preloader-bar"></div>
+                    <div class="preloader-bar"></div>
+                    <div class="preloader-bar"></div>
+                </div>
+                <p>Loading Portfolio...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Progress Bar -->
+    <div id="progress-bar"></div>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    <!-- 3D Interactive Section -->
+    <div id="threejs-container"></div>
+    <nav class="navbar">
+        <div class="logo"><span>B</span>ishnu<span>_</span></div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Projects</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <!-- Blog link removed -->
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-left">
+            <div class="profile-img-container">
+                <img src="images/img.jpg" alt="Profile" class="profile-img">
+            </div>
+        </div>
+        <div class="hero-right">
+            <p class="intro">Hi, I'm <span class="typing-container"><span id="typing-text"></span><span class="cursor"></span></span></p>
+            <h1 class="hero-name">Bishnu</h1>
+            <p class="hero-description">
+                I'm a passionate Full Stack Developer with expertise in creating modern, responsive web applications. With a strong foundation in both frontend and backend technologies, I bring ideas to life through clean, efficient code and exceptional user experiences.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Download CV</a>
+                <a href="#contact" class="btn">Contact</a>
+            </div>
+            <div class="social-links">
+                <a href="www.linkedin.com/in/bishnu-sarkar-0855a22aa" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/bishnu7798" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/bishnu.7798/?hl=en" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/bishnu.sarkar.7798" aria-label="facebook"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a dedicated Full Stack Developer with over 3 years of experience creating dynamic, user-friendly web applications. My journey in technology began during my university studies, and I've since developed expertise in both frontend and backend technologies.</p>
+                    <p>My approach combines technical excellence with creative problem-solving. I believe in writing clean, maintainable code while delivering exceptional user experiences. I'm constantly learning and staying updated with the latest industry trends to provide cutting-edge solutions.</p>
+                    <p>When I'm not coding, you can find me contributing to open-source projects, exploring new technologies, or sharing knowledge through technical articles and mentoring.</p>
+                    <div class="skills">
+                        <h3>Skills</h3>
+                        <div class="skill-tags">
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="skill-tag">HTML5/CSS3</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill-tag">JavaScript/TypeScript</a>
+                            <a href="https://reactjs.org/" target="_blank" class="skill-tag">React.js</a>
+                            <a href="https://nodejs.org/" target="_blank" class="skill-tag">Node.js</a>
+                            <a href="https://expressjs.com/" target="_blank" class="skill-tag">Express.js</a>
+                            <a href="https://www.mongodb.com/" target="_blank" class="skill-tag">MongoDB</a>
+                            <a href="https://www.postgresql.org/" target="_blank" class="skill-tag">PostgreSQL</a>
+                            <a href="https://aws.amazon.com/" target="_blank" class="skill-tag">AWS/Cloud</a>
+                            <a href="https://www.docker.com/" target="_blank" class="skill-tag">Docker</a>
+                            <a href="https://git-scm.com/" target="_blank" class="skill-tag">Git/CI-CD</a>
+                            <a href="https://www.figma.com/" target="_blank" class="skill-tag">UI/UX Design</a>
+                            <a href="https://restfulapi.net/" target="_blank" class="skill-tag">RESTful APIs</a>
+                            <a href="https://www.microsoft.com/en-us/microsoft-365" target="_blank" class="skill-tag">MS Office</a>
+                        </div>
+                        
+                        <div class="skill-progress-bars">
+                            <div class="skill-progress">
+                                <div class="skill-info">
+                                    <span class="skill-name">Frontend Development</span>
+                                    <span class="skill-percent">95%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-info">
+                                    <span class="skill-name">Backend Development</span>
+                                    <span class="skill-percent">70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="70%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-info">
+                                    <span class="skill-name">UI/UX Design</span>
+                                    <span class="skill-percent">85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-info">
+                                    <span class="skill-name">Cloud Solutions</span>
+                                    <span class="skill-percent">50%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="50%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-info">
+                                    <span class="skill-name">Database Design</span>
+                                    <span class="skill-percent">38%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="38%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="images/img.jpg" alt="About Image" class="about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Services</h2>
+            <div class="services-grid">
+                <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" class="service-item-link">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Custom, responsive websites and web applications built with modern technologies for optimal performance and user experience.</p>
+                    </div>
+                </a>
+                <a href="https://developer.apple.com/app-store/" target="_blank" class="service-item-link">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>App Development</h3>
+                        <p>Cross-platform mobile applications for iOS and Android with intuitive interfaces and seamless functionality.</p>
+                    </div>
+                </a>
+                <a href="https://www.figma.com/" target="_blank" class="service-item-link">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>UI/UX Design</h3>
+                        <p>User-centered design solutions that enhance engagement and provide intuitive navigation for digital products.</p>
+                    </div>
+                </a>
+                <a href="https://aws.amazon.com/" target="_blank" class="service-item-link">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Cloud Solutions</h3>
+                        <p>Scalable cloud infrastructure and deployment strategies to optimize performance, security, and cost-efficiency.</p>
+                    </div>
+                </a>
+                <a href="https://developers.google.com/search" target="_blank" class="service-item-link">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>SEO Optimization</h3>
+                        <p>Strategies to improve search engine rankings, increase organic traffic, and boost online visibility.</p>
+                    </div>
+                </a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API" target="_blank" class="service-item-link">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>API Integration</h3>
+                        <p>Seamless integration of third-party services and APIs to extend functionality and enhance user experience.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+            </div>
+            
+            <!-- 3D Model Viewer Modal -->
+            <div id="modelViewerModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3 id="modelTitle">3D Model Viewer</h3>
+                    <p id="modelDescription">Interactive 3D model viewer</p>
+                    <div id="modelContainer"></div>
+                </div>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="images/Cleveroad.jpg" alt="Project 1">
+                        <div class="portfolio-overlay">
+                            <h3>E-Commerce Platform</h3>
+                            <p>Full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.</p>
+                            <a href="#" class="btn">View Project</a>
+                            <button class="btn model-btn" data-model="web">3D View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="images/Game Dashboard Design.jpg" alt="Project 2">
+                        <div class="portfolio-overlay">
+                            <h3>FinTech Mobile App</h3>
+                            <p>Secure mobile banking application with biometric authentication, transaction history, and real-time notifications.</p>
+                            <a href="#" class="btn">View Project</a>
+                            <button class="btn model-btn" data-model="mobile">3D View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-image">
+                        <img src="images/cp.png" alt="Project 3">
+                        <div class="portfolio-overlay">
+                            <h3>Developer Portfolio</h3>
+                            <p>Modern, responsive portfolio website with smooth animations, dark theme, and optimized performance.</p>
+                            <a href="#" class="btn">View Project</a>
+                            <button class="btn model-btn" data-model="design">3D View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="images/Task manager app.jpg" alt="Project 4">
+                        <div class="portfolio-overlay">
+                            <h3>Project Management </h3>
+                            <p>Collaborative task management platform with real-time updates, team collaboration, and progress tracking.</p>
+                            <a href="#" class="btn">View Project</a>
+                            <button class="btn model-btn" data-model="web">3D View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-image">
+                        <img src="images/WordPress dashboard design concept.jpg" alt="Project 5">
+                        <div class="portfolio-overlay">
+                            <h3>Analytics Dashboard</h3>
+                            <p>Interactive data visualization dashboard with real-time metrics, customizable widgets, and export functionality.</p>
+                            <a href="#" class="btn">View Project</a>
+                            <button class="btn model-btn" data-model="design">3D View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="images/Dashboard - Social Media Analytics.jpg" alt="Project 6">
+                        <div class="portfolio-overlay">
+                            <h3>Social Networking Platform</h3>
+                            <p>Feature-rich social media platform with user profiles, content sharing, messaging, and real-time notifications.</p>
+                            <a href="#" class="btn">View Project</a>
+                            <button class="btn model-btn" data-model="web">3D View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="section">
+        <div class="container">
+            <h2 class="section-title">Achievements</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-label">Awards Received</div>
+                </div>
+            </div>
+            
+            <!-- Data Visualization Dashboard -->
+            <div id="dashboard">
+                <h2 class="section-title">Skills Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Technology Distribution</h3>
+                        <canvas id="techChart"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Experience Timeline</h3>
+                        <canvas id="experienceChart"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Project Categories</h3>
+                        <canvas id="projectChart"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Performance Metrics</h3>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section">
+        <div class="container">
+            <h2 class="section-title">Testimonials</h2>
+            <div class="testimonial-carousel">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-content">
+                        <div class="testimonial-avatar">
+                            <img src="images/img.jpg" alt="Client">
+                        </div>
+                        <p class="testimonial-text">"Bishnu transformed our online presence with a stunning website that perfectly captures our brand identity. His attention to detail and technical expertise are unmatched. The project was delivered on time and exceeded our expectations."</p>
+                        <h4 class="client-name">Dipankar</h4>
+                        <p class="client-position">TechInnovate</p>
+                    </div>
+                </div>
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-avatar">
+                            <img src="images/img.jpg" alt="Client">
+                        </div>
+                        <p class="testimonial-text">"Working with Bishnu was a game-changer for our startup. He developed a robust e-commerce platform that has significantly increased our sales. His problem-solving skills and professionalism made the entire process seamless."</p>
+                        <h4 class="client-name">Rony Mandal</h4>
+                        <p class="client-position">GrowthLabs</p>
+                    </div>
+                </div>
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-avatar">
+                            <img src="images/img.jpg" alt="Client">
+                        </div>
+                        <p class="testimonial-text">"Bishnu's expertise in both frontend and backend development is impressive. He created a custom CRM solution for our business that has streamlined our operations. His ongoing support and maintenance have been invaluable."</p>
+                        <h4 class="client-name">Nirmalya Sarkar</h4>
+                        <p class="client-position">Global Solutions</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="testimonial-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+     <section id="resume" class="section">
+    <div class="container">
+        <h2 class="section-title">Resume</h2>
+        <div class="resume-content">
+            <div class="resume-left">
+                <h3>Experience</h3>
+                <div class="experience-item">
+                    <h4>Full Stack Developer</h4>
+                    <p class="company">Google</p>
+                    <p class="date">2025 - Present</p>
+                    <p>Lead development of scalable web applications using React, Node.js, and cloud technologies. Mentor junior developers and collaborate with cross-functional teams to deliver high-quality software solutions.</p>
+                </div>
+                <div class="experience-item">
+                    <h4>Frontend Developer (Freelancer)</h4>
+                    <p class="company">Google</p>
+                    <p class="date">2021 - 2025</p>
+                    <p>Created responsive, animated websites for clients across various industries. Specialized in modern JavaScript frameworks and performance optimization.</p>
+                </div>
+                <h3>Certifications</h3>
+                <ul class="certifications">
+                    <li><a href="https://cloud.google.com/certification/cloud-developer" target="_blank">Google Professional Cloud Developer</a></li>
+                    <li><a href="https://aws.amazon.com/certification/certified-developer-associate/" target="_blank">AWS Certified Developer</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/certifications/azure-fundamentals/" target="_blank">Microsoft Azure Fundamentals</a></li>
+                    <li><a href="https://reactjs.org/community/certifications.html" target="_blank">React.js Advanced Certification</a></li>
+                    <li><a href="https://nodejs.org/en/about/certification" target="_blank">Node.js Backend Development</a></li>
+                </ul>
+            </div>
+            <div class="resume-right">
+                <h3>Education</h3>
+                <div class="education-item">
+                    <h4>Bachelor’s Degree</h4>
+                    <p class="university">University of MALDA</p>
+                    <p class="date">2019 - 2025</p>
+                    <p>Graduated with honors, specializing in software engineering and web technologies. Relevant coursework: Data Structures, Algorithms, Web Development, and Database Systems.</p>
+                </div>
+                <div class="education-item">
+                    <h4>High School Diploma</h4>
+                    <p class="university">Dohil High school</p>
+                    <p class="date">2011 - 2018</p>
+                    <p>Graduated with honors from the scientific track with computer science fundamentals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Blog section removed -->
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>bishnusarkar4321@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 9547 xxxx 76</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>West Bengal, India</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <p>Available: Mon-Fri, 8PM-10PM </p>
+                    </div>
+                    <div class="social-links-contact">
+                        <a href="www.linkedin.com/in/bishnu-sarkar-0855a22aa" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/bishnu7798" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.instagram.com/bishnu.7798/?hl=en" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/bishnu.sarkar.7798" aria-label="facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your Name" required>
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Your Email" required>
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" placeholder="Subject" required>
+                        <span class="error-message" id="subject-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Your Message" rows="6" required></textarea>
+                        <span class="error-message" id="message-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn">Send Message</button>
+                    </div>
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="logo"><span>B</span>ishnu<span>_</span></div>
+                    <p>Creating innovative digital solutions with cutting-edge technology and exceptional user experiences.</p>
+                    <div class="social-links-footer">
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#portfolio">Projects</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> bishnusarkar4321@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9547 xxxx 76</p>
+                    <p><i class="fas fa-map-marker-alt"></i> West Bengal, India </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bishnu. All Rights Reserved.</p>
+                <p class="footer-credit">Designed with <i class="fas fa-heart"></i> by Bishnu</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- AI Chatbot -->
+    <div id="chatbot-container">
+        <div id="chatbot-toggle">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div id="chatbot-window">
+            <div id="chatbot-header">
+                <h3>AI Assistant</h3>
+                <span id="chatbot-close">&times;</span>
+            </div>
+            <div id="chatbot-messages">
+                <div class="message bot-message">
+                    <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                </div>
+            </div>
+            <div id="chatbot-input">
+                <input type="text" id="user-input" placeholder="Type your message here...">
+                <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3D Model Viewer Modal -->
+    <div id="modelViewerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modelTitle">3D Model Viewer</h2>
+            <p id="modelDescription">Interactive 3D model viewer</p>
+            <div id="modelContainer"></div>
+        </div>
+    </div>
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
