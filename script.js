@@ -107,18 +107,54 @@
     }
   }
 
-  // The original typing code starts from DOMContentLoaded. Because script-original.js
-  // is loaded dynamically, that event can already have fired. Start the same original
-  // typing animation as a fallback only when it has not started yet.
+  // Restore the original rotating text effect reliably even though script-original.js
+  // is loaded dynamically after DOMContentLoaded may already have fired.
   function restoreTypingEffect() {
     const typingElement = document.getElementById('typing-text');
-    if (!typingElement || typeof window.type !== 'function') return;
+    if (!typingElement || window.__portfolioTypingStarted) return;
 
+    // Give the original handler a chance to start first. If it has not populated the
+    // element, start an identical single typing loop ourselves.
     setTimeout(function () {
-      if (typingElement.textContent.trim() === '') {
-        window.__typingEffectStarted = true;
-        window.type();
+      if (!typingElement || window.__portfolioTypingStarted) return;
+      if (typingElement.textContent.trim() !== '') return;
+
+      window.__portfolioTypingStarted = true;
+
+      const professions = ['Bishnu', 'Nirmalya', 'Full Stack Developer', 'UI/UX Designer'];
+      let professionIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typingSpeed = 100;
+      const deletingSpeed = 50;
+      const pauseTime = 2000;
+
+      function typeLoop() {
+        const currentProfession = professions[professionIndex];
+
+        if (isDeleting) {
+          charIndex--;
+          typingElement.textContent = currentProfession.substring(0, charIndex);
+        } else {
+          charIndex++;
+          typingElement.textContent = currentProfession.substring(0, charIndex);
+        }
+
+        let nextDelay = isDeleting ? deletingSpeed : typingSpeed;
+
+        if (!isDeleting && charIndex === currentProfession.length) {
+          nextDelay = pauseTime;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          professionIndex = (professionIndex + 1) % professions.length;
+          nextDelay = 500;
+        }
+
+        window.__portfolioTypingTimer = setTimeout(typeLoop, nextDelay);
       }
+
+      typeLoop();
     }, 1200);
   }
 })();
