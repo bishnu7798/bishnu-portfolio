@@ -157,4 +157,15 @@
       typeLoop();
     }, 1200);
   }
+
+  // Extra safety: if the dynamically loaded original script misses DOMContentLoaded,
+  // make sure the typing animation still starts after the page has fully loaded.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      const typingElement = document.getElementById('typing-text');
+      if (typingElement && !typingElement.textContent.trim() && !window.__portfolioTypingStarted) {
+        restoreTypingEffect();
+      }
+    }, 1800);
+  });
 })();
