@@ -28,7 +28,12 @@
   original.src = 'script-original.js';
   original.defer = false;
   original.onload = function () {
-    try { repairPortfolio(); } catch (error) { console.error('Portfolio repair:', error); }
+    try {
+      repairPortfolio();
+      restoreTypingEffect();
+    } catch (error) {
+      console.error('Portfolio repair:', error);
+    }
   };
   original.onerror = function () {
     console.error('Unable to load script-original.js');
@@ -100,5 +105,20 @@
         window.location.href = 'mailto:bishnusarkar4321@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       }, true);
     }
+  }
+
+  // The original typing code starts from DOMContentLoaded. Because script-original.js
+  // is loaded dynamically, that event can already have fired. Start the same original
+  // typing animation as a fallback only when it has not started yet.
+  function restoreTypingEffect() {
+    const typingElement = document.getElementById('typing-text');
+    if (!typingElement || typeof window.type !== 'function') return;
+
+    setTimeout(function () {
+      if (typingElement.textContent.trim() === '') {
+        window.__typingEffectStarted = true;
+        window.type();
+      }
+    }, 1200);
   }
 })();
