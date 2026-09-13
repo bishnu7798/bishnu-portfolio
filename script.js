@@ -4,10 +4,19 @@
   // Keep the existing portfolio design, but disable the two unwanted hero effects.
   const fixStyle = document.createElement('style');
   fixStyle.textContent = `
-    /* Keep the profile photo fixed in its original position. */
     .profile-img {
       transform: none !important;
       transition: none !important;
+    }
+
+    /* WorldLens project card */
+    .worldlens-project .portfolio-image { position: relative; overflow: hidden; }
+    .worldlens-project .portfolio-image img { transition: transform .5s ease, filter .5s ease; }
+    .worldlens-project:hover .portfolio-image img { transform: scale(1.05); filter: brightness(.72); }
+    .worldlens-project .worldlens-badge {
+      position:absolute; top:14px; left:14px; z-index:3; padding:6px 10px;
+      border-radius:999px; background:rgba(6,12,26,.78); border:1px solid rgba(110,170,255,.35);
+      color:#9ec9ff; font-size:10px; letter-spacing:.12em; font-weight:700; backdrop-filter:blur(8px);
     }
   `;
   document.head.appendChild(fixStyle);
@@ -16,9 +25,7 @@
   window.addEventListener('load', function () {
     if (window.THREE && window.THREE.TorusKnotGeometry) {
       window.THREE.TorusKnotGeometry = class extends window.THREE.BufferGeometry {
-        constructor() {
-          super();
-        }
+        constructor() { super(); }
       };
     }
   }, false);
@@ -31,6 +38,7 @@
     try {
       repairPortfolio();
       restoreTypingEffect();
+      addWorldLensProject();
     } catch (error) {
       console.error('Portfolio repair:', error);
     }
@@ -47,7 +55,6 @@
       for (let i = 1; i < modals.length; i++) modals[i].remove();
     }
 
-    // Ensure the profile photo stays fixed even if another script writes an inline transform.
     const profileImg = document.querySelector('.profile-img');
     if (profileImg) profileImg.style.setProperty('transform', 'none', 'important');
 
@@ -56,7 +63,6 @@
       a.href = 'https://' + a.getAttribute('href');
     });
 
-    // Make footer social links use the same real profiles as the hero.
     const footerSocial = document.querySelectorAll('.social-links-footer a');
     const socialUrls = [
       'https://www.linkedin.com/in/bishnu-sarkar-0855a22aa',
@@ -81,7 +87,6 @@
       });
     });
 
-    // Make the CV button useful even when no CV file exists in the repository.
     const cvButton = Array.from(document.querySelectorAll('.hero-buttons .btn')).find(function (a) {
       return a.textContent.trim().toLowerCase().includes('download cv');
     });
@@ -89,8 +94,6 @@
       cvButton.href = 'mailto:bishnusarkar4321@gmail.com?subject=CV%20Request';
     }
 
-    // The original form shows success without actually sending anything.
-    // Replace it with a reliable mailto flow while keeping the existing form UI.
     const form = document.getElementById('contactForm');
     if (form && !form.dataset.repaired) {
       form.dataset.repaired = 'true';
@@ -107,65 +110,93 @@
     }
   }
 
-  // Restore the original rotating text effect reliably even though script-original.js
-  // is loaded dynamically after DOMContentLoaded may already have fired.
+  function addWorldLensProject() {
+    const grid = document.querySelector('.portfolio-grid');
+    if (!grid || grid.querySelector('.worldlens-project')) return;
+
+    const card = document.createElement('div');
+    card.className = 'portfolio-item worldlens-project';
+    card.dataset.category = 'web';
+    card.innerHTML = `
+      <div class="portfolio-image">
+        <img src="images/worldlens-globe.svg" alt="WorldLens interactive 3D news globe preview" loading="lazy">
+        <span class="worldlens-badge">NEW · 3D NEWS GLOBE</span>
+        <div class="portfolio-overlay">
+          <h3>WorldLens — Global Interactive 3D News Globe</h3>
+          <p>Professional interactive globe that connects World → Country → Region → City → Recent News, with news photos, search, markers, heatmap mode and responsive UI.</p>
+          <button type="button" class="btn worldlens-open">View Project</button>
+          <a class="btn" href="world-news-globe/index.html" target="_blank" rel="noopener noreferrer">Open Demo</a>
+        </div>
+      </div>`;
+
+    grid.appendChild(card);
+    card.querySelector('.worldlens-open').addEventListener('click', openWorldLensUI);
+  }
+
+  function openWorldLensUI() {
+    let modal = document.getElementById('worldLensProjectModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'worldLensProjectModal';
+      modal.innerHTML = `
+        <div class="worldlens-modal-backdrop"></div>
+        <div class="worldlens-modal" role="dialog" aria-modal="true" aria-labelledby="worldlensModalTitle">
+          <button class="worldlens-close" aria-label="Close project details">×</button>
+          <div class="worldlens-hero-image"><img src="images/worldlens-globe.svg" alt="WorldLens project preview"></div>
+          <div class="worldlens-modal-body">
+            <span class="worldlens-kicker">NEW PROJECT · GLOBAL WEB EXPERIENCE</span>
+            <h2 id="worldlensModalTitle">WorldLens — Interactive Global News Globe</h2>
+            <p class="worldlens-lead">Explore the world through a cinematic 3D Earth. Select a country, move into its region and city, then read recent stories with photos and original article links.</p>
+            <div class="worldlens-feature-grid">
+              <div><b>🌍 3D Earth</b><span>Mouse/touch rotation, zoom, atmosphere and country boundaries.</span></div>
+              <div><b>📰 News Intelligence</b><span>Global, country, region and city-level demo news.</span></div>
+              <div><b>📍 Smart Navigation</b><span>Search, markers, breadcrumbs and back navigation.</span></div>
+              <div><b>📸 Rich Stories</b><span>Lazy-loaded photos, source, time and read-full-story links.</span></div>
+              <div><b>🔥 Heatmap Mode</b><span>News-volume markers and optional activity visualization.</span></div>
+              <div><b>📱 Responsive UI</b><span>Desktop side panel and mobile stacked news experience.</span></div>
+            </div>
+            <div class="worldlens-stack"><span>HTML5</span><span>CSS3</span><span>Vanilla JS</span><span>Three.js</span><span>Globe.gl</span><span>JSON</span></div>
+            <div class="worldlens-flow"><strong>DEMO FLOW</strong><span>WORLD</span><i>→</i><span>INDIA</span><i>→</i><span>WEST BENGAL</span><i>→</i><span>KOLKATA</span><i>→</i><span>NEWS</span></div>
+            <div class="worldlens-actions"><a class="btn" href="world-news-globe/index.html" target="_blank" rel="noopener noreferrer">Launch WorldLens →</a><button class="btn worldlens-close-action">Close</button></div>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+      const close = () => modal.classList.remove('open');
+      modal.querySelector('.worldlens-close').addEventListener('click', close);
+      modal.querySelector('.worldlens-close-action').addEventListener('click', close);
+      modal.querySelector('.worldlens-modal-backdrop').addEventListener('click', close);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    }
+    modal.classList.add('open');
+  }
+
   function restoreTypingEffect() {
     const typingElement = document.getElementById('typing-text');
     if (!typingElement || window.__portfolioTypingStarted) return;
-
-    // Give the original handler a chance to start first. If it has not populated the
-    // element, start an identical single typing loop ourselves.
     setTimeout(function () {
       if (!typingElement || window.__portfolioTypingStarted) return;
       if (typingElement.textContent.trim() !== '') return;
-
       window.__portfolioTypingStarted = true;
-
       const professions = ['Bishnu', 'Nirmalya', 'Full Stack Developer', 'UI/UX Designer'];
-      let professionIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      const typingSpeed = 100;
-      const deletingSpeed = 50;
-      const pauseTime = 2000;
-
+      let professionIndex = 0, charIndex = 0, isDeleting = false;
+      const typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000;
       function typeLoop() {
         const currentProfession = professions[professionIndex];
-
-        if (isDeleting) {
-          charIndex--;
-          typingElement.textContent = currentProfession.substring(0, charIndex);
-        } else {
-          charIndex++;
-          typingElement.textContent = currentProfession.substring(0, charIndex);
-        }
-
+        if (isDeleting) { charIndex--; typingElement.textContent = currentProfession.substring(0, charIndex); }
+        else { charIndex++; typingElement.textContent = currentProfession.substring(0, charIndex); }
         let nextDelay = isDeleting ? deletingSpeed : typingSpeed;
-
-        if (!isDeleting && charIndex === currentProfession.length) {
-          nextDelay = pauseTime;
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          professionIndex = (professionIndex + 1) % professions.length;
-          nextDelay = 500;
-        }
-
+        if (!isDeleting && charIndex === currentProfession.length) { nextDelay = pauseTime; isDeleting = true; }
+        else if (isDeleting && charIndex === 0) { isDeleting = false; professionIndex = (professionIndex + 1) % professions.length; nextDelay = 500; }
         window.__portfolioTypingTimer = setTimeout(typeLoop, nextDelay);
       }
-
       typeLoop();
     }, 1200);
   }
 
-  // Extra safety: if the dynamically loaded original script misses DOMContentLoaded,
-  // make sure the typing animation still starts after the page has fully loaded.
   window.addEventListener('load', function () {
     setTimeout(function () {
       const typingElement = document.getElementById('typing-text');
-      if (typingElement && !typingElement.textContent.trim() && !window.__portfolioTypingStarted) {
-        restoreTypingEffect();
-      }
+      if (typingElement && !typingElement.textContent.trim() && !window.__portfolioTypingStarted) restoreTypingEffect();
     }, 1800);
   });
 })();
