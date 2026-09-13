@@ -3,6 +3,7 @@
   const fixStyle = document.createElement('style');
   fixStyle.textContent = `
     .profile-img{transform:none!important;transition:none!important}
+    .model-btn,#modelViewerModal{display:none!important}
     .worldlens-project .portfolio-image{position:relative;overflow:hidden}
     .worldlens-project .portfolio-image img{transition:transform .5s ease,filter .5s ease}
     .worldlens-project:hover .portfolio-image img{transform:scale(1.05);filter:brightness(.72)}
