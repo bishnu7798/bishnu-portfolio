@@ -1,0 +1,10 @@
+[
+  {"country":"IN","id":"WB","name":"West Bengal","type":"state","lat":22.9868,"lng":87.8550},
+  {"country":"IN","id":"DL","name":"Delhi","type":"union territory","lat":28.7041,"lng":77.1025},
+  {"country":"US","id":"CA","name":"California","type":"state","lat":36.7783,"lng":-119.4179},
+  {"country":"GB","id":"ENG","name":"England","type":"country","lat":52.3555,"lng":-1.1743},
+  {"country":"FR","id":"IDF","name":"Île-de-France","type":"region","lat":48.8499,"lng":2.6370},
+  {"country":"AU","id":"NSW","name":"New South Wales","type":"state","lat":-31.2532,"lng":146.9211},
+  {"country":"BR","id":"SP","name":"São Paulo","type":"state","lat":-23.5505,"lng":-46.6333},
+  {"country":"JP","id":"TOK","name":"Tokyo","type":"prefecture","lat":35.6762,"lng":139.6503}
+]
