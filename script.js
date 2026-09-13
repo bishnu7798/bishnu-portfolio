@@ -32,7 +32,7 @@
   original.src = 'script-original.js';
   original.defer = false;
   original.onload = function () {
-    try { repairPortfolio(); restoreTypingEffect(); addWorldLensProject(); }
+    try { repairPortfolio(); restoreTypingEffect(); addWorldLensProject(); updateDeveloperPortfolioProject(); }
     catch (error) { console.error('Portfolio repair:', error); }
   };
   original.onerror = function () { console.error('Unable to load script-original.js'); };
@@ -52,6 +52,27 @@
     if(cvButton&&cvButton.getAttribute('href')==='#')cvButton.href='mailto:bishnusarkar4321@gmail.com?subject=CV%20Request';
     const form=document.getElementById('contactForm');
     if(form&&!form.dataset.repaired){form.dataset.repaired='true';form.addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name')?.value.trim()||'',email=document.getElementById('email')?.value.trim()||'',subject=document.getElementById('subject')?.value.trim()||'',message=document.getElementById('message')?.value.trim()||'';if(!name||!email||!subject||!message)return;const body='Name: '+name+'\nEmail: '+email+'\n\n'+message;window.location.href='mailto:bishnusarkar4321@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)},true)}
+  }
+
+  function updateDeveloperPortfolioProject(){
+    const cards = document.querySelectorAll('.portfolio-grid .portfolio-item');
+    cards.forEach(card => {
+      const title = card.querySelector('h3');
+      if (!title || title.textContent.trim() !== 'Developer Portfolio') return;
+      const image = card.querySelector('.portfolio-image img');
+      const viewButton = card.querySelector('.portfolio-overlay a.btn');
+      if (image) {
+        image.src = 'https://image.thum.io/get/width/1200/crop/800/https://bishnu7798.github.io/bishnu-portfolio/';
+        image.alt = 'Bishnu Developer Portfolio website preview';
+        image.loading = 'lazy';
+      }
+      if (viewButton) {
+        viewButton.href = 'https://bishnu7798.github.io/bishnu-portfolio/';
+        viewButton.target = '_blank';
+        viewButton.rel = 'noopener noreferrer';
+        viewButton.textContent = 'Visit Website';
+      }
+    });
   }
 
   function addWorldLensProject(){
