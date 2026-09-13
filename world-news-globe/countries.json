@@ -1,0 +1,13 @@
+[
+  {"id":"IN","name":"India","capital":"New Delhi","lat":20.5937,"lng":78.9629},
+  {"id":"US","name":"United States","capital":"Washington, D.C.","lat":37.0902,"lng":-95.7129},
+  {"id":"GB","name":"United Kingdom","capital":"London","lat":55.3781,"lng":-3.4360},
+  {"id":"FR","name":"France","capital":"Paris","lat":46.2276,"lng":2.2137},
+  {"id":"DE","name":"Germany","capital":"Berlin","lat":51.1657,"lng":10.4515},
+  {"id":"JP","name":"Japan","capital":"Tokyo","lat":36.2048,"lng":138.2529},
+  {"id":"CN","name":"China","capital":"Beijing","lat":35.8617,"lng":104.1954},
+  {"id":"AU","name":"Australia","capital":"Canberra","lat":-25.2744,"lng":133.7751},
+  {"id":"BR","name":"Brazil","capital":"Brasília","lat":-14.2350,"lng":-51.9253},
+  {"id":"CA","name":"Canada","capital":"Ottawa","lat":56.1304,"lng":-106.3468},
+  {"id":"ZA","name":"South Africa","capital":"Pretoria","lat":-30.5595,"lng":22.9375}
+]
