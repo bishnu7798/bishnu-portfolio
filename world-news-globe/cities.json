@@ -1,0 +1,14 @@
+[
+  {"country":"IN","region":"WB","name":"Kolkata","lat":22.5726,"lng":88.3639},
+  {"country":"IN","region":"DL","name":"New Delhi","lat":28.6139,"lng":77.2090},
+  {"country":"US","region":"CA","name":"Los Angeles","lat":34.0522,"lng":-118.2437},
+  {"country":"GB","region":"ENG","name":"London","lat":51.5074,"lng":-0.1278},
+  {"country":"FR","region":"IDF","name":"Paris","lat":48.8566,"lng":2.3522},
+  {"country":"AU","region":"NSW","name":"Sydney","lat":-33.8688,"lng":151.2093},
+  {"country":"BR","region":"SP","name":"São Paulo","lat":-23.5505,"lng":-46.6333},
+  {"country":"JP","region":"TOK","name":"Tokyo","lat":35.6762,"lng":139.6503},
+  {"country":"DE","name":"Berlin","lat":52.5200,"lng":13.4050},
+  {"country":"CN","name":"Beijing","lat":39.9042,"lng":116.4074},
+  {"country":"CA","name":"Toronto","lat":43.6532,"lng":-79.3832},
+  {"country":"ZA","name":"Johannesburg","lat":-26.2041,"lng":28.0473}
+]
