@@ -40,14 +40,14 @@
 
   function repairPortfolio() {
     const modals = document.querySelectorAll('#modelViewerModal');
-    if (modals.length > 1) for (let i=1;i<modals.length;i++) modals[i].remove();
+    modals.forEach(modal => modal.remove());
+    document.querySelectorAll('.model-btn').forEach(button => button.remove());
     const profileImg = document.querySelector('.profile-img');
     if (profileImg) profileImg.style.setProperty('transform','none','important');
     document.querySelectorAll('a[href^="www."]').forEach(a=>a.href='https://'+a.getAttribute('href'));
     const footerSocial=document.querySelectorAll('.social-links-footer a');
     const socialUrls=['https://www.linkedin.com/in/bishnu-sarkar-0855a22aa','https://github.com/bishnu7798','https://twitter.com/','https://www.instagram.com/bishnu.7798/?hl=en'];
     footerSocial.forEach((a,i)=>{if(socialUrls[i])a.href=socialUrls[i]});
-    document.querySelectorAll('.portfolio-overlay a.btn[href="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const item=a.closest('.portfolio-item');const modelButton=item?.querySelector('.model-btn');if(modelButton)modelButton.click()}));
     const cvButton=Array.from(document.querySelectorAll('.hero-buttons .btn')).find(a=>a.textContent.trim().toLowerCase().includes('download cv'));
     if(cvButton&&cvButton.getAttribute('href')==='#')cvButton.href='mailto:bishnusarkar4321@gmail.com?subject=CV%20Request';
     const form=document.getElementById('contactForm');
