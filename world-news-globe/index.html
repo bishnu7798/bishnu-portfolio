@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#070b14">
   <title>WorldLens — Interactive Global News Globe</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260913-4">
 </head>
 <body>
   <div id="loading" class="loading-screen"><div class="loader-orb">🌍</div><h1>WORLDLENS</h1><p id="loadingText">Loading World...</p></div>
@@ -20,12 +20,12 @@
     <section class="globe-stage" aria-label="Interactive 3D globe"><div id="globeViz"></div><div class="globe-vignette"></div><div class="location-chip"><span class="live-dot"></span><span id="locationTitle">GLOBAL NEWS</span></div><div class="controls"><button id="zoomIn">+</button><button id="zoomOut">−</button><button id="resetBtn">⟳ RESET</button><button id="rotateBtn">AUTO ROTATE: ON</button><button id="heatBtn">HEATMAP: ON</button></div><div class="hint">Drag to rotate · Scroll to zoom · Click a marker</div></section>
     <aside id="newsPanel" class="news-panel"><div class="panel-head"><div><span class="eyebrow">WORLD / NEWS</span><h2 id="panelTitle">GLOBAL NEWS</h2></div><button id="backBtn" class="back-btn" hidden>← BACK</button></div><div id="breadcrumb" class="breadcrumb"><button data-level="world">WORLD</button></div><div id="filters" class="filters"></div><div id="featuredNews"></div><div id="newsList" class="news-list"></div></aside>
   </main>
-  <div id="errorBox" class="error-box" hidden><strong>Unable to load news.</strong><span>Showing demo data.</span><button id="retryBtn">Retry</button></div>
+  <div id="errorBox" class="error-box" hidden><strong>News loading failed</strong><span>Refreshing the page will retry.</span><button id="retryBtn">Retry</button></div>
   <footer>WorldLens demo · HTML5 · CSS3 · Vanilla JavaScript · Three.js · Globe.gl</footer>
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-  <script src="config.js"></script>
-  <script src="script.js"></script>
+  <script src="config.js?v=20260913-4"></script>
+  <script src="script-v2.js?v=20260913-4"></script>
 </body>
 </html>
