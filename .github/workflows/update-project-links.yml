@@ -18,9 +18,9 @@ jobs:
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
           links={
-            'E-Commerce Platform':'https://bishnu7798.github.io/E-Commerce-Platform/',
-            'FinTech Mobile App':'https://bishnu7798.github.io/FinTech-Mobile-App/',
-            'Social Networking Platform':'https://bishnu7798.github.io/Social-Media-Platform/'
+            'E-Commerce Platform':'https://htmlpreview.github.io/?https://raw.githubusercontent.com/bishnu7798/E-Commerce-Platform/main/index.html',
+            'FinTech Mobile App':'https://htmlpreview.github.io/?https://raw.githubusercontent.com/bishnu7798/FinTech-Mobile-App/main/index.html',
+            'Social Networking Platform':'https://htmlpreview.github.io/?https://raw.githubusercontent.com/bishnu7798/Social-Media-Platform/main/index.html'
           }
           for title,url in links.items():
             pattern=r'(<h3>'+re.escape(title)+r'</h3>.*?<a\s+href=")[^"]*("\s+class="btn"[^>]*>View Project</a>)'
