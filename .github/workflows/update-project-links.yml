@@ -1,0 +1,37 @@
+name: Update Project Links
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  update:
+    if: "!contains(github.event.head_commit.message, '[skip project links]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update portfolio project links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          links={
+            'E-Commerce Platform':'https://bishnu7798.github.io/E-Commerce-Platform/',
+            'FinTech Mobile App':'https://bishnu7798.github.io/FinTech-Mobile-App/',
+            'Social Networking Platform':'https://bishnu7798.github.io/Social-Media-Platform/'
+          }
+          for title,url in links.items():
+            pattern=r'(<h3>'+re.escape(title)+r'</h3>.*?<a\s+href=")[^"]*("\s+class="btn"[^>]*>View Project</a>)'
+            s,n=re.subn(pattern,lambda m:m.group(1)+url+m.group(2),s,count=1,flags=re.S)
+            print(title,n)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit updated links
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Update project links [skip project links]'
+          git push
