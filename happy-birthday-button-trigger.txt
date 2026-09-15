@@ -1,0 +1,1 @@
+Trigger CSS fix for Happy Birthday View Project button.
