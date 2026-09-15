@@ -2897,7 +2897,7 @@ body.light-theme .dashboard-card {
     max-width: 520px;
 }
 
-.portfolio-grid > .portfolio-item:first-child .portfolio-overlay .btn {
+/*.portfolio-grid > .portfolio-item:first-child .portfolio-overlay .btn {
     position: relative;
     z-index: 10;
     display: inline-flex;
@@ -2915,10 +2915,10 @@ body.light-theme .dashboard-card {
     opacity: 1;
     visibility: visible;
     transform: none;
-}
+}*/
 
 /* Happy Birthday project - ensure View Project button is fully visible */
-.portfolio-grid > .portfolio-item:first-child .portfolio-overlay {
+.portfolio-grid > .portfolio-item:first-child .portfolio-overlay .btn {
     top: 0;
     left: 0;
     width: 100%;
