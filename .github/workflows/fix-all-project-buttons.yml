@@ -1,0 +1,160 @@
+name: Fix all project buttons
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-buttons:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fix portfolio project button layout
+        shell: bash
+        run: |
+          cat >> styles.css <<'EOF'
+
+/* ===== FINAL PROJECT BUTTON FIX ===== */
+#portfolio .portfolio-grid {
+    align-items: stretch;
+}
+
+#portfolio .portfolio-item {
+    overflow: hidden;
+    min-width: 0;
+}
+
+#portfolio .portfolio-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+
+#portfolio .portfolio-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+}
+
+#portfolio .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 24px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#portfolio .portfolio-overlay h3 {
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+#portfolio .portfolio-overlay p {
+    margin: 0;
+    max-width: 100%;
+    flex: 0 0 auto;
+}
+
+#portfolio .portfolio-overlay .btn {
+    position: relative;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 170px;
+    min-height: 48px;
+    height: auto;
+    flex: 0 0 auto;
+    margin: 4px 0 0;
+    padding: 12px 24px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+#portfolio .portfolio-overlay .model-btn {
+    margin-top: 4px;
+}
+
+#portfolio .portfolio-overlay .btn::before,
+#portfolio .portfolio-overlay .btn::after {
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    #portfolio .portfolio-image,
+    #portfolio .portfolio-image img {
+        min-height: 280px;
+    }
+
+    #portfolio .portfolio-overlay {
+        padding: 22px 18px;
+        gap: 10px;
+    }
+
+    #portfolio .portfolio-overlay p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #portfolio .portfolio-overlay .btn {
+        min-width: 155px;
+        min-height: 44px;
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #portfolio .portfolio-image,
+    #portfolio .portfolio-image img {
+        min-height: 250px;
+    }
+
+    #portfolio .portfolio-overlay {
+        padding: 18px 14px;
+    }
+
+    #portfolio .portfolio-overlay h3 {
+        font-size: 20px;
+    }
+
+    #portfolio .portfolio-overlay p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    #portfolio .portfolio-overlay .btn {
+        min-width: 145px;
+        min-height: 42px;
+        padding: 9px 16px;
+        font-size: 13px;
+    }
+}
+/* ===== END PROJECT BUTTON FIX ===== */
+EOF
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add styles.css
+          git diff --cached --quiet && exit 0
+          git commit -m "Fix all project View Project buttons"
+          git push
