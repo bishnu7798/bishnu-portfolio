@@ -18,8 +18,12 @@ META_FILE = ROOT / "news-meta.json"
 FEEDS = [
     ("IN", "WB", "Kolkata", "Kolkata news"),
     ("IN", "WB", None, "West Bengal India news"),
+    ("IN", "WB", "Malda", "Malda West Bengal news"),
+    ("IN", "WB", "Raiganj", "Raiganj Uttar Dinajpur West Bengal news"),
+    ("IN", "WB", "Siliguri", "Siliguri West Bengal news"),
     ("IN", None, None, "India news"),
     ("US", "CA", "Los Angeles", "Los Angeles news"),
+    ("US", "NY", "New York", "New York news"),
     ("US", "CA", None, "California USA news"),
     ("US", None, None, "United States news"),
     ("GB", "ENG", "London", "London UK news"),
