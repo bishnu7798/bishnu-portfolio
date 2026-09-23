@@ -103,7 +103,7 @@
       }
     }catch(e){console.warn('Using built-in demo data',e)}
     render();
-    try{initGlobe()}catch(e){console.warn('Globe unavailable; news mode remains active',e);$('locationTitle').textContent='NEWS MODE';}
+    try{initGlobe();$('errorBox').hidden=true}catch(e){console.warn('Globe unavailable; news mode remains active',e);$('locationTitle').textContent='NEWS MODE';$('errorBox').hidden=true;}
     $('loadingText').textContent=`${state.news.length} news stories ready`;
     setTimeout(()=>$('loading').classList.add('hidden'),300);
     $('errorBox').hidden=true;
