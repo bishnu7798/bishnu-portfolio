@@ -103,10 +103,9 @@
       }
     }catch(e){console.warn('Using built-in demo data',e)}
     render();
-    try{initGlobe();$('errorBox').hidden=true}catch(e){console.warn('Globe unavailable; news mode remains active',e);$('locationTitle').textContent='NEWS MODE';$('errorBox').hidden=true;}
+    try{initGlobe()}catch(e){console.warn('Globe unavailable; continuing in news mode',e);$('locationTitle').textContent='NEWS MODE'}
     $('loadingText').textContent=`${state.news.length} news stories ready`;
     setTimeout(()=>$('loading').classList.add('hidden'),300);
-    $('errorBox').hidden=true;
   }
   document.addEventListener('click',e=>{
     const f=e.target.closest('[data-filter]');if(f){state.filter=f.dataset.filter;render();return}
@@ -119,6 +118,6 @@
   $('resetBtn').onclick=world;$('backBtn').onclick=()=>state.level==='city'?region(state.region):state.level==='region'?country(state.country):world();
   $('rotateBtn').onclick=()=>{state.auto=!state.auto;if(state.globe)state.globe.controls().autoRotate=state.auto;$('rotateBtn').textContent=`AUTO ROTATE: ${state.auto?'ON':'OFF'}`};
   $('heatBtn').onclick=()=>{state.heat=!state.heat;if(state.globe)state.globe.pointColor(()=>state.heat?'#ff9f43':'#5da2ff');$('heatBtn').textContent=`HEATMAP: ${state.heat?'ON':'OFF'}`};
-  $('fullscreenBtn').onclick=()=>document.documentElement.requestFullscreen?.();$('themeBtn').onclick=()=>document.body.classList.toggle('light');$('retryBtn').onclick=()=>location.reload();
+  $('fullscreenBtn').onclick=()=>document.documentElement.requestFullscreen?.();$('themeBtn').onclick=()=>document.body.classList.toggle('light');
   start();
 })();
