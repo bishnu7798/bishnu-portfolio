@@ -49,6 +49,7 @@
   function filtered(){let n=[...state.news];if(state.level==='country')n=n.filter(x=>x.country===state.country?.id);if(state.level==='region')n=n.filter(x=>x.country===state.country?.id&&x.region===state.region?.id);if(state.level==='city')n=n.filter(x=>x.city===state.city?.name);if(state.filter!=='ALL')n=n.filter(x=>String(x.category||'').toUpperCase()===state.filter);return n.sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt))}
   function title(){return state.level==='city'?state.city.name:state.level==='region'?state.region.name:state.level==='country'?state.country.name:'GLOBAL NEWS'}
   function render(){
+    renderTicker();
     const news=filtered(),first=news[0];$('panelTitle').textContent=title();$('locationTitle').textContent=title();
     $('breadcrumb').innerHTML='<button data-level="world">WORLD</button>'+(state.country?` / <button data-level="country">${esc(state.country.name.toUpperCase())}</button>`:'')+(state.region?` / <button data-level="region">${esc(state.region.name.toUpperCase())}</button>`:'')+(state.city?` / <button data-level="city">${esc(state.city.name.toUpperCase())}</button>`:'');
     $('backBtn').hidden=state.level==='world';
@@ -56,6 +57,26 @@
     if(!first){$('featuredNews').innerHTML='<div class="meta">No news found for this selection.</div>';$('newsList').innerHTML='';return}
     $('featuredNews').innerHTML=`<article class="featured">${img(first.image,first.title)}<div class="featured-body"><div class="category">${esc(first.category||'NEWS')}</div><h3>${esc(first.title)}</h3><p>${esc(first.description)}</p><div class="meta">${esc(first.source||'WorldLens')} · ${ago(first.publishedAt)}</div><a class="read" href="${esc(first.url||'#')}" target="_blank" rel="noopener">READ FULL STORY →</a></div></article>`;
     $('newsList').innerHTML=news.slice(1,8).map(n=>`<article class="news-card">${img(n.image,n.title)}<div><div class="category">${esc(n.category||'NEWS')}</div><h4>${esc(n.title)}</h4><p>${esc(n.description)}</p><div class="meta">${esc(n.source||'WorldLens')} · ${ago(n.publishedAt)}</div><a class="read" href="${esc(n.url||'#')}" target="_blank" rel="noopener">READ →</a></div></article>`).join('');
+  }
+  function updateLiveMeta(meta){
+    const badge=$('updatedBadge');
+    if(!badge)return;
+    if(meta?.updatedAt){
+      const d=new Date(meta.updatedAt);
+      badge.textContent='UPDATED '+d.toLocaleString([], {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+      badge.title='Provider: '+(meta.provider||'RSS')+' · Stories: '+(meta.storyCount||state.news.length);
+      badge.classList.add('fresh');
+    }else{
+      badge.textContent='LIVE RSS';
+    }
+  }
+  function renderTicker(){
+    const box=$('breakingTicker'); if(!box)return;
+    const breaking=[...state.news].filter(x=>x.breaking).sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt)).slice(0,8);
+    const items=(breaking.length?breaking:state.news.slice(0,8));
+    if(!items.length){box.hidden=true;return}
+    box.hidden=false;
+    box.innerHTML='<span class="ticker-label">● LIVE</span><div class="ticker-track">'+items.map(n=>'<a href="'+esc(n.url||'#')+'" target="_blank" rel="noopener"><strong>'+esc(n.city||n.country||'WORLD')+'</strong> '+esc(n.title)+'</a>').join('')+'</div>';
   }
   function camera(lat,lng,alt){if(state.globe)state.globe.pointOfView({lat,lng,alt},900)}
   function country(c){state.level='country';state.country=c;state.region=null;state.city=null;state.filter='ALL';render();camera(c.lat,c.lng,1.35)}
@@ -75,6 +96,8 @@
       const data=await Promise.all([get('countries.json'),get('regions.json'),get('cities.json'),get('news.json'),getMeta()]);
       state.countries=data[0];state.regions=data[1];state.cities=data[2];state.news=data[3];
       const meta=data[4];
+      updateLiveMeta(meta);
+      renderTicker();
       if(meta?.updatedAt){
         $('loadingText').textContent='Live RSS news · updated '+new Date(meta.updatedAt).toLocaleString();
       }
