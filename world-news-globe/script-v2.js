@@ -32,10 +32,17 @@
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   async function get(name){
-    for(const url of [RAW+name+'?v=20260913-5',LOCAL+name+'?v=20260913-5']){
+    const bust='?t='+Date.now();
+    for(const url of [RAW+name+bust,LOCAL+name+bust]){
       try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)continue;const d=await r.json();if(Array.isArray(d)&&d.length)return d}catch(e){}
     }
     return name==='countries.json'?DEMO_COUNTRIES:name==='regions.json'?DEMO_REGIONS:name==='cities.json'?DEMO_CITIES:DEMO_NEWS;
+  }
+  async function getMeta(){
+    for(const url of [RAW+'news-meta.json?t='+Date.now(),LOCAL+'news-meta.json?t='+Date.now()]){
+      try{const r=await fetch(url,{cache:'no-store'});if(r.ok)return await r.json()}catch(e){}
+    }
+    return null;
   }
   function ago(v){const ms=Date.now()-new Date(v).getTime();const s=Math.max(0,ms/1000);if(s<60)return'Just now';if(s<3600)return Math.floor(s/60)+' min ago';if(s<86400)return Math.floor(s/3600)+' hr ago';return Math.floor(s/86400)+' day ago'}
   function img(u,t){return `<img src="${esc(u||FALLBACK)}" alt="${esc(t)}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK}'">`}
@@ -65,8 +72,12 @@
   async function start(){
     $('loadingText').textContent='Loading WorldLens...';
     try{
-      const data=await Promise.all([get('countries.json'),get('regions.json'),get('cities.json'),get('news.json')]);
+      const data=await Promise.all([get('countries.json'),get('regions.json'),get('cities.json'),get('news.json'),getMeta()]);
       state.countries=data[0];state.regions=data[1];state.cities=data[2];state.news=data[3];
+      const meta=data[4];
+      if(meta?.updatedAt){
+        $('loadingText').textContent='Live RSS news · updated '+new Date(meta.updatedAt).toLocaleString();
+      }
     }catch(e){console.warn('Using built-in demo data',e)}
     render();
     try{initGlobe()}catch(e){console.warn('Globe unavailable; news mode remains active',e);$('locationTitle').textContent='NEWS MODE';}
