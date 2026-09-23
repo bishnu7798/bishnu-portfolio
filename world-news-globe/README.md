@@ -39,3 +39,15 @@ The data files are intentionally separated so more countries, regions, cities an
 ## Deployment
 
 The folder can be deployed to Vercel, Netlify, GitHub Pages or Cloudflare Pages as a static website.
+
+## Automatic live news
+
+WorldLens now uses a **free Google News RSS pipeline** with no API key:
+- GitHub Actions refreshes the news every 6 hours.
+- A manual workflow-dispatch run is available from GitHub Actions.
+- Fresh stories are saved to `news.json` with title, description, source, published time, article link and thumbnail when the RSS feed provides one.
+- The browser adds a cache-busting timestamp so visitors receive the newest generated feed instead of an old browser/CDN cache.
+- If a temporary RSS failure occurs, the previous working news file is preserved.
+- `news-updater.py` maps location-specific feeds to the existing World → Country → Region → City globe navigation.
+
+No paid news API key is required.
