@@ -102,7 +102,7 @@
     canvas.addEventListener('pointerup',()=>dragging=false);canvas.addEventListener('pointercancel',()=>dragging=false);
     canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.65,Math.min(1.7,zoom*(e.deltaY<0?1.1:.9)));draw()},{passive:false});
     canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let hit=null,best=Infinity;state.cities.forEach(c=>{const p=project(c.lat,c.lng),d=Math.hypot(p.x-x,p.y-y);if(p.z>=0&&d<18&&d<best){best=d;hit=c}});if(hit)city(hit)});
-    state.globe={pointOfView({lat,lng,alt}={}){rotation=-lng;zoom=Math.max(.65,Math.min(1.7,1.35/(alt||1)));draw()},controls(){return {set autoRotate(v){state.auto=v}}};width(){return this},height(){return this}};
+    state.globe={pointOfView({lat,lng,alt}={}){rotation=-(lng||0);zoom=Math.max(.65,Math.min(1.7,1.35/(alt||1)));draw()},zoomIn(){zoom=Math.min(1.7,zoom*1.15);draw()},zoomOut(){zoom=Math.max(.65,zoom*.87);draw()},controls(){return {set autoRotate(v){state.auto=v}}},width(){return this},height(){return this}};
     const tick=()=>{if(state.auto&&!dragging){rotation+=.035;draw()}anim=requestAnimationFrame(tick)};tick();window.addEventListener('resize',resize);resize();
   }
   async function start(){
@@ -128,8 +128,8 @@
     const s=e.target.closest('.search-result');if(s){const x=$('searchResults')._items[+s.dataset.i];$('searchResults').classList.remove('show');$('searchInput').value=x.name;x.type==='country'?country(x.item):x.type==='region'?region(x.item):city(x.item)}
   });
   $('searchInput').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();if(!q){$('searchResults').classList.remove('show');return}const a=[];state.countries.filter(x=>x.name.toLowerCase().includes(q)).forEach(x=>a.push({type:'country',name:x.name,item:x}));state.regions.filter(x=>x.name.toLowerCase().includes(q)).forEach(x=>a.push({type:'region',name:x.name,item:x}));state.cities.filter(x=>x.name.toLowerCase().includes(q)).forEach(x=>a.push({type:'city',name:x.name,item:x}));$('searchResults')._items=a;$('searchResults').innerHTML=a.slice(0,8).map((x,i)=>`<button class="search-result" data-i="${i}"><b>📍 ${esc(x.name)}</b><small>${x.type}</small></button>`).join('');$('searchResults').classList.toggle('show',a.length>0)});
-  $('zoomIn').onclick=()=>{if(state.globe)state.globe.pointOfView({lat:20,lng:0,alt:Math.max(.65,1/state.globeZoom||.65)});};
-  $('zoomOut').onclick=()=>{};
+  $('zoomIn').onclick=()=>{state.globe?.zoomIn()};
+  $('zoomOut').onclick=()=>{state.globe?.zoomOut()};
   $('resetBtn').onclick=world;$('backBtn').onclick=()=>state.level==='city'?region(state.region):state.level==='region'?country(state.country):world();
   $('rotateBtn').onclick=()=>{state.auto=!state.auto;if(state.globe)state.globe.controls().autoRotate=state.auto;$('rotateBtn').textContent=`AUTO ROTATE: ${state.auto?'ON':'OFF'}`};
   $('heatBtn').onclick=()=>{state.heat=!state.heat;if(state.globe)state.globe.pointColor(()=>state.heat?'#ff9f43':'#5da2ff');$('heatBtn').textContent=`HEATMAP: ${state.heat?'ON':'OFF'}`};
