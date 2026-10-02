@@ -942,6 +942,7 @@ document.addEventListener('click', (e) => {
 
 // AI Chatbot functionality
 function initChatbot() {
+    if (window.__disableLegacyChatbot) return;
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotWindow = document.getElementById('chatbot-window');
     const chatbotClose = document.getElementById('chatbot-close');
