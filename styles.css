@@ -3050,3 +3050,127 @@ body.light-theme .dashboard-card {
         font-size: 14px;
     }
 }
+
+
+/* =========================================================
+   LIVING GALAXY BACKGROUND — Portfolio Space Theme
+   ========================================================= */
+html, body { min-height: 100%; }
+body {
+    background: #02040b !important;
+    position: relative;
+}
+body.light-theme { background: #02040b !important; color: #e8eefc; }
+
+#space-background {
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(67, 41, 155, .24), transparent 27%),
+        radial-gradient(circle at 82% 24%, rgba(0, 116, 255, .18), transparent 25%),
+        radial-gradient(circle at 48% 82%, rgba(176, 38, 255, .13), transparent 30%),
+        linear-gradient(145deg, #01030a 0%, #050816 45%, #02030a 100%);
+}
+#space-background::before,
+#space-background::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.92) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(145,190,255,.65) 0 1px, transparent 1.8px);
+    background-size: 97px 113px, 173px 151px;
+    background-position: 0 0, 40px 70px;
+    opacity: .34;
+    animation: galaxyDrift 70s linear infinite;
+}
+#space-background::after {
+    background-size: 211px 187px, 131px 173px;
+    background-position: 80px 30px, 20px 100px;
+    opacity: .18;
+    animation-duration: 105s;
+    animation-direction: reverse;
+}
+.space-nebula {
+    position: absolute;
+    width: 70vw;
+    height: 36vw;
+    border-radius: 50%;
+    filter: blur(55px);
+    opacity: .22;
+    mix-blend-mode: screen;
+    animation: nebulaFloat 18s ease-in-out infinite alternate;
+}
+.space-nebula-one { left: -20vw; top: 18%; background: radial-gradient(ellipse, rgba(92,55,255,.8), transparent 65%); transform: rotate(-20deg); }
+.space-nebula-two { right: -22vw; top: 5%; background: radial-gradient(ellipse, rgba(0,160,255,.72), transparent 66%); animation-delay: -7s; }
+.space-nebula-three { left: 15vw; bottom: -24vw; background: radial-gradient(ellipse, rgba(230,40,190,.48), transparent 66%); animation-delay: -12s; }
+
+.space-stars { position: absolute; inset: 0; }
+.space-star {
+    position: absolute;
+    width: var(--size, 2px);
+    height: var(--size, 2px);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(150,205,255,.85);
+    animation: starTwinkle var(--duration, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+.space-star.large { box-shadow: 0 0 12px 2px rgba(145,200,255,.72); }
+
+.space-shooting-stars { position: absolute; inset: 0; }
+.space-shooting-stars span {
+    position: absolute;
+    width: 150px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(180,220,255,.25), #fff);
+    box-shadow: 0 0 10px rgba(120,190,255,.9);
+    transform: rotate(-35deg);
+    opacity: 0;
+    animation: shootingStar 8s linear infinite;
+}
+.space-shooting-stars span:nth-child(1){left: 8%;top: 18%;animation-delay: 1s}
+.space-shooting-stars span:nth-child(2){left: 55%;top: 12%;animation-delay: 4s}
+.space-shooting-stars span:nth-child(3){left: 72%;top: 48%;animation-delay: 7s}
+.space-shooting-stars span:nth-child(4){left: 28%;top: 65%;animation-delay: 10s}
+.space-shooting-stars span:nth-child(5){left: 82%;top: 78%;animation-delay: 13s}
+
+.space-planet {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .78;
+    filter: saturate(1.12);
+    animation: planetFloat 12s ease-in-out infinite;
+}
+.space-planet::before { content:''; position:absolute; inset:-18%; border-radius:50%; background:radial-gradient(circle, rgba(80,150,255,.16), transparent 65%); filter:blur(10px); }
+.space-planet::after { content:''; position:absolute; left:-30%; top:43%; width:160%; height:18%; border:1px solid rgba(180,220,255,.3); border-radius:50%; transform:rotate(-18deg); box-shadow:0 0 12px rgba(100,180,255,.22); }
+.space-planet i { position:absolute; inset:8%; border-radius:50%; background:linear-gradient(145deg,rgba(255,255,255,.28),transparent 30%); opacity:.65; }
+.space-planet-one { width:110px;height:110px;right:7%;top:18%;background:radial-gradient(circle at 32% 28%,#9be7ff,#3559c9 42%,#11183e 78%);box-shadow:0 0 55px rgba(48,105,255,.32); }
+.space-planet-two { width:54px;height:54px;left:8%;bottom:18%;background:radial-gradient(circle at 30% 25%,#ffd8a0,#c35d35 45%,#30151a 82%);box-shadow:0 0 35px rgba(255,104,50,.2);animation-delay:-5s; }
+.space-glow { position:absolute; width:45vw;height:45vw;left:27%;top:24%;border-radius:50%;background:radial-gradient(circle,rgba(70,120,255,.035),transparent 66%);animation:corePulse 8s ease-in-out infinite; }
+
+@keyframes galaxyDrift { from{transform:translate3d(0,0,0) rotate(0)} to{transform:translate3d(3%,2%,0) rotate(3deg)} }
+@keyframes nebulaFloat { from{transform:translate3d(-2%,0,0) scale(1)} to{transform:translate3d(5%,4%,0) scale(1.12)} }
+@keyframes starTwinkle { 0%,100%{opacity:.25;transform:scale(.75)} 50%{opacity:1;transform:scale(1.35)} }
+@keyframes shootingStar { 0%,72%{opacity:0;transform:translate3d(-20px,-20px,0) rotate(-35deg)} 76%{opacity:1} 88%{opacity:1;transform:translate3d(360px,210px,0) rotate(-35deg)} 100%{opacity:0;transform:translate3d(470px,275px,0) rotate(-35deg)} }
+@keyframes planetFloat { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-18px) rotate(8deg)} }
+@keyframes corePulse { 0%,100%{transform:scale(.9);opacity:.4} 50%{transform:scale(1.12);opacity:1} }
+
+/* Keep existing content readable over the galaxy */
+.navbar { background: rgba(2,5,15,.72) !important; backdrop-filter: blur(16px); }
+.section { position: relative; }
+.section::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(2,4,12,.08),rgba(2,4,12,.18)); z-index:-1; pointer-events:none; }
+body.light-theme .navbar { background: rgba(2,5,15,.72) !important; }
+
+@media (max-width: 700px) {
+    .space-planet-one { width:72px;height:72px;right:3%;top:15%; }
+    .space-planet-two { width:38px;height:38px;left:3%;bottom:14%; }
+    .space-shooting-stars span { width:100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #space-background *, #space-background::before, #space-background::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
