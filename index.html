@@ -50,6 +50,19 @@
     <div id="particles-js"></div>
     <!-- 3D Interactive Section -->
     <div id="threejs-container"></div>
+    <!-- Living Galaxy Background -->
+    <div id="space-background" aria-hidden="true">
+        <div class="space-nebula space-nebula-one"></div>
+        <div class="space-nebula space-nebula-two"></div>
+        <div class="space-nebula space-nebula-three"></div>
+        <div class="space-stars" id="space-stars"></div>
+        <div class="space-shooting-stars" id="space-shooting-stars">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="space-planet space-planet-one"><i></i></div>
+        <div class="space-planet space-planet-two"><i></i></div>
+        <div class="space-glow"></div>
+    </div>
     <nav class="navbar">
         <div class="logo"><span>B</span>ishnu<span>_</span></div>
         <ul class="nav-links">
@@ -616,5 +629,27 @@
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
-</body>
+
+    <script>
+    // Generate a living star field without external assets.
+    (function(){
+        const field=document.getElementById('space-stars');
+        if(!field || field.dataset.ready) return;
+        field.dataset.ready='true';
+        const count=Math.min(180, Math.max(90, Math.floor(window.innerWidth*0.12)));
+        const frag=document.createDocumentFragment();
+        for(let i=0;i<count;i++){
+            const star=document.createElement('span');
+            star.className='space-star'+(Math.random()>0.88?' large':'');
+            star.style.left=(Math.random()*100)+'%';
+            star.style.top=(Math.random()*100)+'%';
+            star.style.setProperty('--size',(Math.random()*2.2+0.7)+'px');
+            star.style.setProperty('--duration',(2.2+Math.random()*5)+'s');
+            star.style.setProperty('--delay',(-Math.random()*6)+'s');
+            frag.appendChild(star);
+        }
+        field.appendChild(frag);
+    })();
+    </script>
+\n</body>
 </html>
