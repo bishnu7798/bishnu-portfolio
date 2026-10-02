@@ -1,5 +1,7 @@
 (function () {
   'use strict';
+  // Use the secure OpenAI backend instead of the old simulated chatbot.
+  window.__disableLegacyChatbot = true;
   const fixStyle = document.createElement('style');
   fixStyle.textContent = `
     .profile-img{transform:none!important;transition:none!important}
@@ -33,11 +35,93 @@
   original.src = 'script-original.js';
   original.defer = false;
   original.onload = function () {
-    try { repairPortfolio(); restoreTypingEffect(); addWorldLensProject(); updateDeveloperPortfolioProject(); }
+    try { repairPortfolio(); restoreTypingEffect(); addWorldLensProject(); updateDeveloperPortfolioProject(); initOpenAIChatbot(); }
     catch (error) { console.error('Portfolio repair:', error); }
   };
   original.onerror = function () { console.error('Unable to load script-original.js'); };
   document.head.appendChild(original);
+
+  function initOpenAIChatbot() {
+    const toggle = document.getElementById('chatbot-toggle');
+    const win = document.getElementById('chatbot-window');
+    const close = document.getElementById('chatbot-close');
+    const messages = document.getElementById('chatbot-messages');
+    const input = document.getElementById('user-input');
+    const send = document.getElementById('send-button');
+    if (!toggle || !win || !close || !messages || !input || !send || window.__openAIChatbotReady) return;
+
+    window.__openAIChatbotReady = true;
+
+    const apiUrl = window.OPENAI_CHAT_API || '/api/chat';
+    const history = [];
+
+    toggle.addEventListener('click', () => win.classList.toggle('active'));
+    close.addEventListener('click', () => win.classList.remove('active'));
+
+    function addMessage(text, role) {
+      const item = document.createElement('div');
+      item.className = 'message ' + (role === 'user' ? 'user-message' : 'bot-message');
+      const p = document.createElement('p');
+      p.textContent = text;
+      item.appendChild(p);
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+      return item;
+    }
+
+    function addTyping() {
+      const item = document.createElement('div');
+      item.className = 'message bot-message chatbot-typing';
+      item.innerHTML = '<p><span>●</span> <span>●</span> <span>●</span></p>';
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+      return item;
+    }
+
+    async function sendMessage() {
+      const text = input.value.trim();
+      if (!text || send.disabled) return;
+
+      input.value = '';
+      addMessage(text, 'user');
+      history.push({ role: 'user', content: text });
+      const typing = addTyping();
+      send.disabled = true;
+      input.disabled = true;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history.slice(-12) })
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Request failed');
+
+        const reply = data.reply || 'Sorry, I could not generate a response.';
+        typing.remove();
+        addMessage(reply, 'assistant');
+        history.push({ role: 'assistant', content: reply });
+      } catch (error) {
+        typing.remove();
+        addMessage('AI connection is not available right now. Please try again in a moment.', 'assistant');
+        console.error('OpenAI chatbot:', error);
+      } finally {
+        send.disabled = false;
+        input.disabled = false;
+        input.focus();
+      }
+    }
+
+    send.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  }
 
   function repairPortfolio() {
     const modals = document.querySelectorAll('#modelViewerModal');
