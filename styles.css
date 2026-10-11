@@ -3530,3 +3530,40 @@ body.light-theme #contact .section-title::after { background: #168ce5 !important
   -webkit-filter: none !important;
   mix-blend-mode: normal !important;
 }
+
+
+/* Small personal logo marks: navbar and footer only. The preloader remains unchanged. */
+.logo .personal-logo-mark {
+    display: block;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 1px solid rgba(33, 150, 243, 0.45);
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.16);
+}
+.navbar .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+.footer-about .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+.footer-about .logo .personal-logo-mark {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+}
+@media (max-width: 768px) {
+    .logo .personal-logo-mark {
+        width: 25px;
+        height: 25px;
+        flex-basis: 25px;
+    }
+    .navbar .logo { gap: 5px; }
+}
