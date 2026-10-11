@@ -3174,3 +3174,186 @@ body.light-theme .navbar { background: rgba(2,5,15,.72) !important; }
 @media (prefers-reduced-motion: reduce) {
     #space-background *, #space-background::before, #space-background::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+
+/* =========================================================
+   ACCESSIBILITY + LIGHT MODE CONTRAST + MOBILE PERFORMANCE
+   Portfolio enhancement, Oct 2026
+   ========================================================= */
+:root {
+  color-scheme: dark;
+  --accent-strong: #075fc7;
+  --light-text: #172033;
+  --light-muted: #465268;
+  --light-surface: #ffffff;
+  --light-border: #d5deea;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+a, button, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid #1684ff !important;
+  outline-offset: 3px;
+}
+
+/* Light mode: restore a genuinely light canvas and high-contrast text. */
+body.light-theme {
+  color-scheme: light;
+  background: #f4f7fc !important;
+  color: var(--light-text) !important;
+}
+body.light-theme #space-background {
+  opacity: .10;
+  filter: saturate(.45);
+}
+body.light-theme #space-background .space-nebula,
+body.light-theme #space-background .space-planet,
+body.light-theme #space-background .space-shooting-stars { opacity: .10; }
+body.light-theme .section,
+body.light-theme .hero,
+body.light-theme #about,
+body.light-theme #resume,
+body.light-theme #contact,
+body.light-theme #portfolio,
+body.light-theme #services,
+body.light-theme #testimonials {
+  color: var(--light-text);
+}
+body.light-theme :is(p, li, label, small, .intro, .hero-description, .about-text,
+  .contact-info, .contact-item, .stat-label, .footer p, .blog-post p,
+  .service-item p, .portfolio-item p, .testimonial-text, .recommender-content p,
+  .blockchain-info p, .wallet-details p, .section-description, .skill-name,
+  .timeline-content p, .resume-item p, .form-group label) {
+  color: var(--light-muted) !important;
+}
+body.light-theme :is(h1,h2,h3,h4,h5,h6,.hero-name,.section-title,.logo,
+  .portfolio-item h3,.service-item h3,.stat-number,.dashboard-card h3) {
+  color: #15243a;
+}
+body.light-theme .hero-name { color: #075fc7 !important; text-shadow: none; }
+body.light-theme .section-title,
+body.light-theme .dashboard-card h3,
+body.light-theme .blockchain-info h3 { color: #075fc7 !important; }
+body.light-theme .navbar,
+body.light-theme .navbar.scrolled {
+  background: rgba(255,255,255,.96) !important;
+  border-bottom: 1px solid #dbe3ef;
+  box-shadow: 0 5px 22px rgba(20,35,60,.08);
+  backdrop-filter: none;
+}
+body.light-theme .logo { color: #15243a !important; text-shadow: none; }
+body.light-theme .nav-links a { color: #26364d !important; opacity: 1; }
+body.light-theme .nav-links a:hover,
+body.light-theme .nav-links a.active { color: #075fc7 !important; }
+body.light-theme .portfolio-item,
+body.light-theme .blog-post,
+body.light-theme .service-item,
+body.light-theme .stat-item,
+body.light-theme #dashboard,
+body.light-theme .dashboard-card,
+body.light-theme #blockchain-showcase,
+body.light-theme .wallet-details,
+body.light-theme .modal-content,
+body.light-theme #chatbot-window {
+  background: #fff !important;
+  color: #172033 !important;
+  border-color: #d8e1ed !important;
+  box-shadow: 0 8px 26px rgba(25,45,75,.09);
+  backdrop-filter: none;
+}
+body.light-theme .skill-tag {
+  color: #064eaa !important;
+  background: #eaf3ff !important;
+  border-color: #b8d4f6 !important;
+}
+body.light-theme .btn {
+  color: #084a91;
+  border-color: #1769c2;
+}
+body.light-theme .btn:hover,
+body.light-theme .btn:focus-visible { color: #fff !important; }
+body.light-theme .form-group input,
+body.light-theme .form-group textarea,
+body.light-theme #user-input,
+body.light-theme select {
+  background: #fff !important;
+  color: #172033 !important;
+  border: 1.5px solid #aabbd0 !important;
+  box-shadow: none;
+}
+body.light-theme input::placeholder,
+body.light-theme textarea::placeholder,
+body.light-theme #user-input::placeholder {
+  color: #59677b !important;
+  opacity: 1;
+}
+body.light-theme .form-group input:focus,
+body.light-theme .form-group textarea:focus,
+body.light-theme #user-input:focus {
+  border-color: #075fc7 !important;
+  box-shadow: 0 0 0 3px rgba(7,95,199,.14) !important;
+}
+body.light-theme .footer {
+  background: #eaf0f8 !important;
+  color: #172033 !important;
+  border-top: 1px solid #d5deea;
+}
+body.light-theme .social-links a,
+body.light-theme .social-links-footer a,
+body.light-theme .social-links-contact a { color: #26364d; }
+body.light-theme #chatbot-header { background: #eaf3ff !important; }
+body.light-theme #chatbot-header h3 { color: #064eaa !important; }
+body.light-theme .bot-message { background: #eaf3ff !important; color: #172033 !important; }
+body.light-theme .user-message { background: #075fc7 !important; color: #fff !important; }
+body.light-theme .error-message { color: #b42318 !important; }
+body.light-theme .form-message.success { color: #166534 !important; }
+body.light-theme .form-message.error { color: #b42318 !important; }
+
+/* Keep cards and content legible if an older selector sets pale text. */
+body.light-theme :is(.about-text, .contact-info, .contact-item, .stat-label,
+  .dashboard-card, .dashboard-card p, .timeline-content, .resume-item,
+  .service-item, .portfolio-item, .testimonial-item, .recommender-content,
+  .blockchain-info, .wallet-details, .form-group) { color: #26364d; }
+body.light-theme .portfolio-overlay { color: #fff; }
+body.light-theme .portfolio-overlay :is(h3,p,.btn) { color: #fff; }
+
+/* Mobile-first performance: reduce expensive continuous effects on small devices. */
+@media (max-width: 768px), (pointer: coarse) {
+  .navbar, .worldlens-modal, #chatbot-window,
+  #blockchain-showcase, .portfolio-item, .blog-post {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .hero::before, .hero::after { animation: none !important; }
+  .profile-img-container, .profile-img-container::before,
+  .profile-img-container::after { animation: none !important; }
+  .stat-item, .contact-item { animation: none !important; }
+  .space-nebula { filter: none !important; animation: none !important; opacity: .08; }
+  #threejs-container, #particles-js { visibility: hidden !important; }
+  .space-shooting-stars { display: none !important; }
+  .space-planet { animation: none !important; opacity: .22; }
+  .space-stars .space-star { animation: none !important; }
+  .navbar, .navbar.scrolled { transition: none !important; }
+  .portfolio-item, .service-item, .blog-post, .stat-item { transition: box-shadow .18s ease !important; }
+  .portfolio-item:hover, .service-item:hover, .blog-post:hover, .stat-item:hover {
+    transform: none !important;
+  }
+}
+@media (max-width: 420px) {
+  .hero { padding-left: 5% !important; padding-right: 5% !important; }
+  .section { padding-left: 0 !important; padding-right: 0 !important; }
+  .hero-name { font-size: clamp(2.2rem, 11vw, 3.4rem) !important; }
+  #chatbot-container { right: 12px !important; bottom: 12px !important; }
+  #chatbot-toggle { width: 52px !important; height: 52px !important; }
+  #chatbot-window { width: min(340px, calc(100vw - 24px)) !important; right: 0 !important; }
+  .dashboard-grid { grid-template-columns: minmax(0,1fr) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
