@@ -3357,3 +3357,29 @@ body.light-theme .portfolio-overlay :is(h3,p,.btn) { color: #fff; }
     transition-duration: .01ms !important;
   }
 }
+
+
+/* LIGHT MODE CONTRAST FIX: override legacy dark-mode/opacity rules */
+body.light-theme { background: #f4f7fc !important; color: #1b2638 !important; }
+body.light-theme #space-background { opacity: .035 !important; }
+body.light-theme #space-background::before, body.light-theme #space-background::after { opacity: .06 !important; }
+body.light-theme .hero, body.light-theme .hero-right, body.light-theme .hero-left,
+body.light-theme .hero .intro, body.light-theme .hero-description,
+body.light-theme .about-text, body.light-theme .about-text p,
+body.light-theme .section p, body.light-theme .section li,
+body.light-theme .resume-item, body.light-theme .timeline-content,
+body.light-theme .contact-info, body.light-theme .contact-info p,
+body.light-theme .service-item p, body.light-theme .portfolio-item p {
+  color: #344258 !important; opacity: 1 !important; visibility: visible !important;
+  text-shadow: none !important;
+}
+body.light-theme .hero-name, body.light-theme .section-title,
+body.light-theme .hero .intro span, body.light-theme h1, body.light-theme h2,
+body.light-theme h3, body.light-theme h4 { color: #075fc7 !important; opacity: 1 !important; }
+body.light-theme .hero .btn { color: #084a91 !important; background: rgba(255,255,255,.92) !important; border-color: #087be0 !important; }
+body.light-theme .hero .btn:hover { color: #fff !important; background: #087be0 !important; }
+body.light-theme .portfolio-overlay { background: linear-gradient(180deg,rgba(3,12,30,.25),rgba(3,12,30,.94)) !important; }
+body.light-theme .portfolio-overlay :is(h3,p,.btn) { color: #fff !important; }
+/* The portfolio no longer includes an AI chatbot. */
+#chatbot-container, #chatbot-toggle, #chatbot-window { display: none !important; }
+@media (max-width: 768px), (pointer: coarse) { #chatbot-container { display:none !important; } }
