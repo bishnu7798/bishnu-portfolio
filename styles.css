@@ -3576,3 +3576,113 @@ body.light-theme #contact .section-title::after { background: #168ce5 !important
     }
     .navbar .logo { gap: 7px; }
 }
+
+
+/* Screenshot-matched mobile-first BISHNU loading screen */
+#preloader {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100svh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  background: #0f0f0f !important;
+  opacity: 1;
+  visibility: visible;
+  z-index: 2147483647 !important;
+  overflow: hidden !important;
+  transition: opacity .35s ease, visibility .35s ease !important;
+}
+#preloader.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+#preloader .loader {
+  width: 100% !important;
+  max-width: 440px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  color: #2196f3 !important;
+}
+#preloader .preloader-content {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: translateY(-1vh);
+}
+#preloader .preloader-logo {
+  margin: 0 0 66px !important;
+  color: #2196f3 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: clamp(44px, 8.2vw, 70px) !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  letter-spacing: 1px !important;
+  opacity: 1 !important;
+  text-shadow: 0 0 10px rgba(33,150,243,.38), 0 0 24px rgba(33,150,243,.18) !important;
+  animation: screenshotLogoGlow 2.2s ease-in-out infinite alternate !important;
+}
+#preloader .preloader-bars {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  height: 34px !important;
+  margin: 0 0 24px !important;
+}
+#preloader .preloader-bar {
+  display: block !important;
+  flex: 0 0 16px !important;
+  width: 16px !important;
+  height: 25px !important;
+  min-height: 25px !important;
+  background: #2196f3 !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+  transform-origin: center !important;
+  animation: screenshotBarPulse .9s ease-in-out infinite !important;
+}
+#preloader .preloader-bar:nth-child(1) { animation-delay: -.48s !important; }
+#preloader .preloader-bar:nth-child(2) { animation-delay: -.36s !important; }
+#preloader .preloader-bar:nth-child(3) { animation-delay: -.24s !important; }
+#preloader .preloader-bar:nth-child(4) { animation-delay: -.12s !important; }
+#preloader .preloader-bar:nth-child(5) { height: 34px !important; min-height: 34px !important; animation-delay: 0s !important; }
+#preloader .preloader-content p {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #2196f3 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: clamp(19px, 4.2vw, 31px) !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+@keyframes screenshotLogoGlow {
+  from { text-shadow: 0 0 8px rgba(33,150,243,.28), 0 0 16px rgba(33,150,243,.12); }
+  to { text-shadow: 0 0 13px rgba(33,150,243,.5), 0 0 27px rgba(33,150,243,.2); }
+}
+@keyframes screenshotBarPulse {
+  0%, 100% { transform: scaleY(.72); }
+  50% { transform: scaleY(1); }
+}
+@media (max-width: 480px) {
+  #preloader .preloader-logo { margin-bottom: 70px !important; }
+  #preloader .preloader-bars { gap: 9px !important; margin-bottom: 22px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #preloader .preloader-logo,
+  #preloader .preloader-bar { animation-duration: 1.8s !important; }
+}
