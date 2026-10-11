@@ -610,16 +610,29 @@
 \n
 <script>
 (function () {
+  var startedAt = Date.now();
+  var removed = false;
   function removePreloader() {
+    if (removed) return;
+    removed = true;
     var el = document.getElementById('preloader');
-    if (el) el.remove();
+    if (!el) return;
+    el.classList.add('hidden');
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    }, 350);
+  }
+  function finishLoading() {
+    var remaining = Math.max(0, 700 - (Date.now() - startedAt));
+    setTimeout(removePreloader, remaining);
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', removePreloader, { once: true });
+    document.addEventListener('DOMContentLoaded', finishLoading, { once: true });
   } else {
-    removePreloader();
+    finishLoading();
   }
-  setTimeout(removePreloader, 1200);
+  window.addEventListener('load', removePreloader, { once: true });
+  setTimeout(removePreloader, 1400);
 })();
 </script>
 
