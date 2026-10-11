@@ -3383,3 +3383,8 @@ body.light-theme .portfolio-overlay :is(h3,p,.btn) { color: #fff !important; }
 /* The portfolio no longer includes an AI chatbot. */
 #chatbot-container, #chatbot-toggle, #chatbot-window { display: none !important; }
 @media (max-width: 768px), (pointer: coarse) { #chatbot-container { display:none !important; } }
+
+
+/* Emergency fail-safe: the page must never stay covered by the loader. */
+#preloader { animation: portfolioPreloaderFailsafe .01s linear 3s forwards !important; }
+@keyframes portfolioPreloaderFailsafe { to { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; } }
