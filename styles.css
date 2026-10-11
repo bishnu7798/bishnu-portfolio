@@ -3448,3 +3448,14 @@ body.light-theme #contact .section-title::after { background: #168ce5 !important
   mix-blend-mode: normal !important;
   transition: transform 0.3s ease !important;
 }
+
+
+/* Critical fix: hueRotate was applied to the entire project card, tinting every image.
+   Keep only the entrance animation and explicitly stop all color-changing animations. */
+.portfolio-grid .portfolio-item {
+  animation: fadeInUp 0.5s ease forwards !important;
+  animation-delay: 0s !important;
+}
+.portfolio-grid .portfolio-item:hover {
+  animation: none !important;
+}
