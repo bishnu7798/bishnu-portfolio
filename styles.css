@@ -3459,3 +3459,25 @@ body.light-theme #contact .section-title::after { background: #168ce5 !important
 .portfolio-grid .portfolio-item:hover {
   animation: none !important;
 }
+
+
+/* Final project-thumbnail color lock: thumbnails must retain their source-file colors. */
+#projects .portfolio-item,
+#projects .portfolio-item:hover,
+.portfolio-grid .portfolio-item,
+.portfolio-grid .portfolio-item:hover {
+  animation: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+#projects .portfolio-image img,
+#projects .portfolio-image img:hover,
+#projects .portfolio-item:hover .portfolio-image img,
+.portfolio-grid .portfolio-image img,
+.portfolio-grid .portfolio-image img:hover,
+.portfolio-grid .portfolio-item:hover .portfolio-image img {
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
