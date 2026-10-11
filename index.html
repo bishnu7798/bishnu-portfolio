@@ -19,21 +19,24 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader">
-            <div class="preloader-content">
-                <div class="preloader-logo">BISHNU</div>
-                <div class="preloader-bars">
-                    <div class="preloader-bar"></div>
-                    <div class="preloader-bar"></div>
-                    <div class="preloader-bar"></div>
-                    <div class="preloader-bar"></div>
-                    <div class="preloader-bar"></div>
-                </div>
-                <p>Loading Portfolio...</p>
-            </div>
+    <!-- Cinematic portfolio intro -->
+    <div id="preloader" role="status" aria-label="Loading Bishnu Portfolio">
+        <div class="intro-scene" aria-hidden="true">
+            <div class="intro-orbit intro-orbit-one"><span></span></div>
+            <div class="intro-orbit intro-orbit-two"><span></span></div>
+            <div class="intro-core"><span>B</span></div>
+            <div class="intro-spark intro-spark-one"></div>
+            <div class="intro-spark intro-spark-two"></div>
+            <div class="intro-spark intro-spark-three"></div>
         </div>
+        <div class="intro-wordmark">
+            <div class="intro-kicker">WELCOME TO MY WORLD</div>
+            <div class="intro-title">BISHNU <span>PORTFOLIO</span></div>
+            <div class="intro-loading-row"><span>CRAFTING DIGITAL EXPERIENCES</span><span class="intro-percent">01—99</span></div>
+            <div class="intro-progress"><span></span></div>
+        </div>
+        <div class="intro-corner intro-corner-left">DESIGN · CODE · CREATE</div>
+        <div class="intro-corner intro-corner-right">PORTFOLIO / 2026</div>
     </div>
     
     <!-- Scroll Progress Bar -->
@@ -608,16 +611,23 @@
 \n
 <script>
 (function () {
-  function removePreloader() {
+  var started = false;
+  function hidePreloader() {
+    if (started) return;
+    started = true;
     var el = document.getElementById('preloader');
-    if (el) el.remove();
+    if (!el) return;
+    el.classList.add('intro-finished');
+    window.setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 850);
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', removePreloader, { once: true });
-  } else {
-    removePreloader();
+  function startIntro() {
+    // Keep the intro short and cinematic, while allowing the page to begin loading.
+    window.setTimeout(hidePreloader, 1900);
   }
-  setTimeout(removePreloader, 1200);
+  if (document.readyState === 'complete') startIntro();
+  else window.addEventListener('load', startIntro, { once: true });
+  // Safety fallback for slow networks or a failed external script.
+  window.setTimeout(hidePreloader, 4200);
 })();
 </script>
 
