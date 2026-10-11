@@ -3430,3 +3430,21 @@ body.light-theme #resume a,
 body.light-theme #contact a { color: #075fc7; }
 body.light-theme #resume .section-title::after,
 body.light-theme #contact .section-title::after { background: #168ce5 !important; }
+
+
+/* Preserve original project thumbnail colors; disable theme color filters/rotation. */
+.portfolio-grid > .portfolio-item {
+  animation-name: fadeInUp !important;
+  animation-duration: 0.5s !important;
+  animation-timing-function: ease !important;
+  animation-iteration-count: 1 !important;
+  animation-fill-mode: forwards !important;
+}
+.portfolio-grid .portfolio-image img,
+.portfolio-grid .portfolio-image img:hover,
+.portfolio-grid .portfolio-item:hover .portfolio-image img {
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+  transition: transform 0.3s ease !important;
+}
