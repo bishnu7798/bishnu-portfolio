@@ -1621,102 +1621,10 @@ function initNeuralNetworkViz() {
     console.log("Neural Network Visualization feature removed");
 }
 
-// 5. BLOCKCHAIN INTEGRATION SHOWCASE
-function initBlockchainShowcase() {
-    // Create blockchain section
-    const contactSection = document.getElementById('contact');
-    if (!contactSection) return;
-
-    const blockchainDiv = document.createElement('div');
-    blockchainDiv.id = 'blockchain-showcase';
-    blockchainDiv.innerHTML = `
-        <div class="container">
-            <h2 class="section-title">Blockchain Integration</h2>
-            <div class="blockchain-content">
-                <div class="blockchain-info">
-                    <h3>Web3 Skills Showcase</h3>
-                    <p>Connect your wallet to see a demonstration of blockchain integration:</p>
-                    <button id="connect-wallet" class="btn">Connect Wallet</button>
-                    <div id="wallet-info" style="margin-top: 20px;"></div>
-                </div>
-                <div class="blockchain-visual">
-                    <div class="blockchain-animation">
-                        <div class="block">Block 1</div>
-                        <div class="block">Block 2</div>
-                        <div class="block">Block 3</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Insert after contact section
-    contactSection.parentNode.insertBefore(blockchainDiv, contactSection.nextSibling);
-
-    // Add event listener for wallet connection
-    document.getElementById('connect-wallet').addEventListener('click', connectWallet);
-}
-
-// Simple wallet connection simulation
-async function connectWallet() {
-    const walletInfo = document.getElementById('wallet-info');
-    
-    // Check if Web3 is available
-    if (typeof Web3 === 'undefined') {
-        walletInfo.innerHTML = '<p style="color: #f44336;">Web3 not available. Please install MetaMask or similar wallet.</p>';
-        return;
-    }
-
-    try {
-        // In a real implementation, this would connect to a wallet
-        // For now, we'll just simulate a connection
-        walletInfo.innerHTML = `
-            <div class="wallet-details">
-                <p><strong>Wallet Connected!</strong></p>
-                <p>Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e</p>
-                <p>Balance: 2.5 ETH</p>
-                <p>Network: Ethereum Mainnet</p>
-                <button id="disconnect-wallet" class="btn" style="margin-top: 10px;">Disconnect</button>
-            </div>
-        `;
-        
-        document.getElementById('disconnect-wallet').addEventListener('click', () => {
-            walletInfo.innerHTML = '<p>Wallet disconnected.</p>';
-        });
-        
-        // Start blockchain animation
-        startBlockchainAnimation();
-    } catch (error) {
-        walletInfo.innerHTML = `<p style="color: #f44336;">Error connecting wallet: ${error.message}</p>`;
-    }
-}
-
-function startBlockchainAnimation() {
-    const blocks = document.querySelectorAll('.blockchain-animation .block');
-    let currentIndex = 0;
-    
-    function highlightBlock() {
-        // Remove highlight from all blocks
-        blocks.forEach(block => block.classList.remove('active'));
-        
-        // Highlight current block
-        blocks[currentIndex].classList.add('active');
-        
-        // Move to next block
-        currentIndex = (currentIndex + 1) % blocks.length;
-        
-        // Continue animation
-        setTimeout(highlightBlock, 1000);
-    }
-    
-    highlightBlock();
-}
-
 // Initialize all super advanced features when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize features with a delay to ensure all libraries are loaded
     setTimeout(() => {
         initProjectRecommender();
-        initBlockchainShowcase();
     }, 2000);
 });
