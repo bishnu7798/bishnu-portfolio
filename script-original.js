@@ -73,9 +73,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 
-// Check for saved theme preference or respect OS preference
+// First-time visitors always see Light Mode. Only use Dark Mode after the visitor explicitly selects it.
 const savedTheme = localStorage.getItem('theme');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 // Apply theme on page load
 function applyTheme(isLight) {
@@ -92,7 +91,7 @@ function applyTheme(isLight) {
 
 // Set initial theme with a small delay to ensure DOM is ready
 setTimeout(() => {
-    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+    if (savedTheme !== 'dark') {
         applyTheme(true);
     } else {
         applyTheme(false);
