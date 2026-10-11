@@ -1,7 +1,6 @@
 (function () {
   'use strict';
   // Use the secure OpenAI backend instead of the old simulated chatbot.
-  window.__disableLegacyChatbot = true;
   const fixStyle = document.createElement('style');
   fixStyle.textContent = `
     .profile-img{transform:none!important;transition:none!important}
@@ -35,13 +34,13 @@
   original.src = 'script-original.js';
   original.defer = false;
   original.onload = function () {
-    try { repairPortfolio(); restoreTypingEffect(); addWorldLensProject(); updateDeveloperPortfolioProject(); initOpenAIChatbot(); }
+    try { repairPortfolio(); restoreTypingEffect(); addWorldLensProject(); updateDeveloperPortfolioProject(); }
     catch (error) { console.error('Portfolio repair:', error); }
   };
   original.onerror = function () { console.error('Unable to load script-original.js'); };
   document.head.appendChild(original);
 
-  function initOpenAIChatbot() {
+  function {
     const toggle = document.getElementById('chatbot-toggle');
     const win = document.getElementById('chatbot-window');
     const close = document.getElementById('chatbot-close');
