@@ -583,7 +583,14 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 - 2027  Bishnu. All Rights Reserved.</p>
+                <p>&copy; <span id="copyright-years">2026 - 2027</span> Bishnu. All Rights Reserved.</p>
+                <script>
+                (function () {
+                  var year = new Date().getFullYear();
+                  var startYear = year;
+                  document.getElementById("copyright-years").textContent = startYear + " - " + (startYear + 1);
+                })();
+                </script>
                 <p class="footer-credit">Designed with <i class="fas fa-heart"></i> by Bishnu</p>
             </div>
         </div>
