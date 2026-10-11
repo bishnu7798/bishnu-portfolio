@@ -3388,3 +3388,45 @@ body.light-theme .portfolio-overlay :is(h3,p,.btn) { color: #fff !important; }
 /* Emergency fail-safe: the page must never stay covered by the loader. */
 #preloader { animation: portfolioPreloaderFailsafe .01s linear 3s forwards !important; }
 @keyframes portfolioPreloaderFailsafe { to { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; } }
+
+
+/* Light Mode readability fixes for Resume and Contact sections on mobile and desktop. */
+body.light-theme #resume,
+body.light-theme #contact {
+  background: #f4f7fc !important;
+  background-image: none !important;
+  color: #243247 !important;
+}
+body.light-theme #resume :is(h1,h2,h3,h4,.section-title),
+body.light-theme #contact :is(h1,h2,h3,h4,.section-title) {
+  color: #075fc7 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+body.light-theme #resume :is(p,li,span,small,strong,em,.company,.date,.description),
+body.light-theme #contact :is(p,li,span,label,.contact-info,.contact-item) {
+  color: #344258 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+body.light-theme #resume :is(.resume-item,.timeline-content,.experience-item,.education-item,.certification-item),
+body.light-theme #contact :is(.contact-form,.form-group) {
+  color: #344258 !important;
+  background-color: transparent;
+}
+body.light-theme #contact input,
+body.light-theme #contact textarea,
+body.light-theme #contact select {
+  color: #172033 !important;
+  background: #fff !important;
+  border: 2px solid #a8bbd2 !important;
+}
+body.light-theme #contact input::placeholder,
+body.light-theme #contact textarea::placeholder {
+  color: #596a80 !important;
+  opacity: 1 !important;
+}
+body.light-theme #resume a,
+body.light-theme #contact a { color: #075fc7; }
+body.light-theme #resume .section-title::after,
+body.light-theme #contact .section-title::after { background: #168ce5 !important; }
