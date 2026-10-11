@@ -3481,3 +3481,28 @@ body.light-theme #contact .section-title::after { background: #168ce5 !important
   opacity: 1 !important;
   mix-blend-mode: normal !important;
 }
+
+
+/* Definitive project thumbnail fix: the section ID in index.html is #portfolio.
+   Remove legacy hue-rotation animation and every image color filter in that section. */
+#portfolio .portfolio-grid > .portfolio-item,
+#portfolio .portfolio-grid > .portfolio-item:hover,
+#portfolio .portfolio-grid > .portfolio-item * {
+  animation-name: none !important;
+}
+#portfolio .portfolio-grid .portfolio-image,
+#portfolio .portfolio-grid .portfolio-image img,
+#portfolio .portfolio-grid .portfolio-image img:hover,
+#portfolio .portfolio-grid .portfolio-item:hover .portfolio-image img,
+#portfolio .portfolio-grid .portfolio-item:hover .portfolio-image {
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+#portfolio .portfolio-grid .portfolio-image img {
+  transition: transform 0.3s ease !important;
+}
+#portfolio .portfolio-grid .portfolio-item:hover .portfolio-image img {
+  transform: scale(1.02);
+}
